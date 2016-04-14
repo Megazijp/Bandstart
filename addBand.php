@@ -29,7 +29,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
     </head>
 
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -74,35 +73,80 @@
             <div class="intro-body">
                 <div class="container">
                     <div id="row">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Add Band</h3>
-                            </div>
-                            <div class="panel-body">
-                                <form style="">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Email address</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputFile">File input</label>
-                                        <input type="file" id="exampleInputFile">
-                                        <p class="help-block">Example block-level help text here.</p>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Check me out
-                                        </label>
-                                    </div>
-                                    <button type="submit" class="btn btn-default">Submit</button>
-                                </form>
+                        <div class="col-md-4">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Add Band</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <form action="addBandScript.php" method="post">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Band Name</label>
+                                            <input type="text" class="form-control" name="bandName" placeholder="Band Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Song Title</label>
+                                            <input type="text" class="form-control" name="songTitle" placeholder="Song Title">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Song URL</label>
+                                            <input type="text" class="form-control" name="songUrl" placeholder="Song URL">
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="ytThumb" onclick="toggleImage()"> Thumbnail from Youtube
+                                            </label>
+                                        </div>
+                                        <div class="form-group" id="ImagePath">
+                                            <label for="exampleInputFile">Thumbnail</label>
+                                            <input type="file" name="thumb">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Band Bio</label>
+                                            <textarea class="form-control" rows="5" name="bandBio" style="resize: none;"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-
+                        <div class="col-md-4">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Add Band</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <form action="addBandScript.php" method="post">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Band Name</label>
+                                            <input type="text" class="form-control" name="bandName" placeholder="Band Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Song Title</label>
+                                            <input type="text" class="form-control" name="songTitle" placeholder="Song Title">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Song URL</label>
+                                            <input type="text" class="form-control" name="songUrl" placeholder="Song URL">
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="ytThumb" onclick="toggleImage()"> Thumbnail from Youtube
+                                            </label>
+                                        </div>
+                                        <div class="form-group" id="ImagePath">
+                                            <label for="exampleInputFile">Thumbnail</label>
+                                            <input type="file" name="thumb">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Band Bio</label>
+                                            <textarea class="form-control" rows="5" name="bandBio" style="resize: none;"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
 
@@ -126,6 +170,11 @@
         <!-- Custom Theme JavaScript -->
         <script src="js/grayscale.js"></script>
 
+        <script>
+            function toggleImage() {
+                $('#ImagePath').toggle();
+            }
+        </script>
 
 
     </body>
