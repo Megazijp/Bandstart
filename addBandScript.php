@@ -17,11 +17,11 @@ echo "Band Bio: " . $_POST['bandBio'] . "<br />";
 $thumbUrl = "";
 
 if($_POST['ytThumb']){   
-    $pieces = explode("watch?v=", $_POST['songUrl']);
-    $pieces = explode("&", $pieces[1]);
-    $thumbUrl =  "http://img.youtube.com/vi/" . $pieces[0] . "/0.jpg";
-    copy($thumbUrl, "uploads/" . $_POST['bandName'] . " - " . $_POST['songTitle'] . ".jpg");
-    echo "<img src='" . $thumbUrl . "' />";
+	$pieces = explode("watch?v=", $_POST['songUrl']);
+	$pieces = explode("&", $pieces[1]);
+	$thumbUrl =  "http://img.youtube.com/vi/" . $pieces[0] . "/0.jpg";
+	copy($thumbUrl, "uploads/" . $_POST['bandName'] . " - " . $_POST['songTitle'] . ".jpg");
+	echo "<img src='" . $thumbUrl . "' />";
 }
 
 // Check connection
