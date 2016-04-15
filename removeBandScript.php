@@ -7,20 +7,14 @@ $database = "bandstart";
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
 
-/*
-echo "id: " . $_POST['id'] . "<br />";
-echo "Band Name: " . $_POST['bandName'] . "<br />";
-echo "Song Title: " . $_POST['songTitle'] . "<br />";
-echo "Song URL: " . $_POST['songUrl'] . "<br />";
-echo "Band Bio: " . $_POST['bandBio'] . "<br />";
-*/
+
 // Check connection
 if ($conn->connect_error) {
     //die("Connection failed: " . $conn->connect_error);
 }
 
 
-$sql = "UPDATE bands SET name='" . $_POST['bandName'] . "', url='" . $_POST['songUrl'] . "', Titel='" . $_POST['songTitle'] . "', bio='" . $_POST['bandBio'] . "' WHERE id=" . $_POST['id'];
+$sql = "DELETE FROM bands WHERE id=" . $_POST['songsRm'];
 
 if ($conn->query($sql) === TRUE) {
     //echo "Record updated successfully";

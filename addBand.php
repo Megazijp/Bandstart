@@ -171,7 +171,7 @@
 										<form onsubmit="return removeSong()" action="removeBandScript.php" method="post">
 											<div class="form-group">
 												<label for="exampleSelect1">Example select</label>
-												<select id="songsRm" name="songsRm" class="form-control" id="exampleSelect1">
+												<select id="songsRm" name="songsRm" class="form-control" id="exampleSelect1" onchange="document.getElementById('rmSubmit').disabled = false;">
 
 													<option disabled selected value> -- select a song -- </option>
 													<?php
@@ -181,7 +181,7 @@
 													?>
 												</select>
 											</div>
-											<button type="submit" class="btn btn-default">Submit</button>
+											<button disabled="true" id="rmSubmit" type="submit" class="btn btn-default">Submit</button>
 										</form>
 									</div>
 								</div>
