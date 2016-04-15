@@ -1,7 +1,7 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
+$servername = "192.168.178.24";
+$username = "bandstart";
+$password = "mhz16mhz";
 $database = "bandstart";
 
 // Create connection
