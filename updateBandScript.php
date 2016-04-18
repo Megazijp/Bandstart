@@ -20,16 +20,19 @@ if ($conn->connect_error) {
 }
 
 
-$sql = "UPDATE bands SET name='" . $_POST['bandName'] . "', url='" . $_POST['songUrl'] . "', Titel='" . $_POST['songTitle'] . "', bio='" . $_POST['bandBio'] . "' WHERE id=" . $_POST['id'];
+$sql = "UPDATE bands SET name='" . $_POST['bandName'] . "', url='" . $_POST['songUrl'] . "', Titel='" . $_POST['songTitle'] . "', bio='" . $_POST['bandBio'] . "', img ='" . "uploads/" . $_POST['bandName'] . " - " . $_POST['songTitle'] . ".jpg" . "' WHERE id=" . $_POST['id'];
+
+rename("uploads/" . $_POST['bandNameOld'] . " - " . $_POST['songTitleOld'] . ".jpg", "uploads/" . $_POST['bandName'] . " - " . $_POST['songTitle'] . ".jpg");
+
 
 if ($conn->query($sql) === TRUE) {
-    //echo "Record updated successfully";
+    echo "Record updated successfully";
 } else {
-    //echo "Error: " . $sql . "<br>" . $conn->error;
+    echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
 mysqli_close($conn);
 
-header("Location: addBand.php");
-exit();
+//header("Location: addBand.php");
+//exit();
 ?>

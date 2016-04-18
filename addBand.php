@@ -144,11 +144,14 @@
 											<div class="form-group">
 												<label for="exampleInputEmail1">Band Name</label>
 												<input <?php if(!isset($_GET[ 'id'])) echo "disabled='true'"; else echo "value='$band[1]'" ?> type="text" class="form-control" name="bandName" placeholder="Band Name">
+												<input <?php if(!isset($_GET[ 'id'])) echo "disabled='true'"; else echo "value='$band[1]'" ?> type="hidden" class="form-control" name="bandNameOld" placeholder="Band Name">
 											</div>
 											<div class="form-group">
 												<label for="exampleInputPassword1">Song Title</label>
 												<input <?php if(!isset($_GET[ 'id'])) echo "disabled='true'"; else echo "value='$band[3]'" ?> type="text" class="form-control" name="songTitle" placeholder="Song Title">
 											</div>
+																							<input <?php if(!isset($_GET[ 'id'])) echo "disabled='true'"; else echo "value='$band[3]'" ?> type="hidden" class="form-control" name="songTitleOld" placeholder="Band Name">
+
 											<div class="form-group">
 												<label for="exampleInputPassword1">Song URL</label>
 												<input <?php if(!isset($_GET[ 'id'])) echo "disabled='true'"; else echo "value='$band[2]'" ?> type="text" class="form-control" name="songUrl" placeholder="Song URL">
