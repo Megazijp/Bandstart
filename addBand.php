@@ -51,7 +51,7 @@
 						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
 							<i class="fa fa-bars"></i>
 						</button>
-						<a class="navbar-brand page-scroll" href="#page-top">
+						<a class="navbar-brand page-scroll" href="index.php">
 							<i class="fa fa-play-circle"></i> <span class="light">Bandstart</span>
 						</a>
 					</div>
@@ -61,7 +61,7 @@
 						<ul class="nav navbar-nav">
 							<!-- Hidden li included to remove active class from about link when scrolled up past about section -->
 							<li class="hidden">
-								<a href="#page-top"></a>
+								<a href="index.php"></a>
 							</li>
 							<li>
 								<a class="page-scroll" href="#bands">Bands</a>
@@ -90,7 +90,7 @@
 										<h3 class="panel-title">Add Song</h3>
 									</div>
 									<div class="panel-body">
-										<form action="addBandScript.php" method="post">
+										<form action="addSongScript.php" method="post" enctype="multipart/form-data">
 											<div class="form-group">
 												<label for="exampleInputEmail1">Band Name</label>
 												<input type="text" class="form-control" name="bandName" placeholder="Band Name">
@@ -110,11 +110,11 @@
 											</div>
 											<div class="form-group" id="ImagePath">
 												<label for="exampleInputFile">Thumbnail</label>
-												<input type="file" name="thumb">
+												<input type="file" name="thumb" id="thumb">
 											</div>
 											<div class="form-group">
-												<label for="exampleInputPassword1">Band Bio</label>
-												<textarea class="form-control" rows="5" name="bandBio" style="resize: none;"></textarea>
+												<label for="exampleInputPassword1">Song Description</label>
+												<textarea class="form-control" rows="5" name="songDesc" style="resize: none;"></textarea>
 											</div>
 											<button type="submit" class="btn btn-default">Submit</button>
 										</form>
@@ -129,7 +129,7 @@
 									<div class="panel-body">
 										<form action="updateBandScript.php" method="post">
 											<div class="form-group">
-												<label for="exampleSelect1">Example select</label>
+												<label for="exampleSelect1">Select Song</label>
 												<select onchange="loadSong()" name="songs" class="form-control" id="exampleSelect1">
 
 													<option disabled selected value> -- select a song -- </option>
@@ -140,27 +140,29 @@
 													?>
 												</select>
 											</div>
-<?php if(isset($_GET['id'])) echo "<input type='hidden' name='id' value='" . $band[0] . "'>" ?>
-											<div class="form-group">
-												<label for="exampleInputEmail1">Band Name</label>
-												<input <?php if(!isset($_GET[ 'id'])) echo "disabled='true'"; else echo "value='$band[1]'" ?> type="text" class="form-control" name="bandName" placeholder="Band Name">
-												<input <?php if(!isset($_GET[ 'id'])) echo "disabled='true'"; else echo "value='$band[1]'" ?> type="hidden" class="form-control" name="bandNameOld" placeholder="Band Name">
-											</div>
-											<div class="form-group">
-												<label for="exampleInputPassword1">Song Title</label>
-												<input <?php if(!isset($_GET[ 'id'])) echo "disabled='true'"; else echo "value='$band[3]'" ?> type="text" class="form-control" name="songTitle" placeholder="Song Title">
-											</div>
-																							<input <?php if(!isset($_GET[ 'id'])) echo "disabled='true'"; else echo "value='$band[3]'" ?> type="hidden" class="form-control" name="songTitleOld" placeholder="Band Name">
+											<?php if(isset($_GET['id'])) echo "<input type='hidden' name='id' value='" . $band[0] . "'>" ?>
+												<div class="form-group">
+													<label for="exampleInputEmail1">Band Name</label>
+													<input <?php if(!isset($_GET[ 'id'])) echo "disabled='true'"; else echo "value='$band[1]'" ?> type="text" class="form-control" name="bandName" placeholder="Band Name">
+													<input <?php if(!isset($_GET[ 'id'])) echo "disabled='true'"; else echo "value='$band[1]'" ?> type="hidden" class="form-control" name="bandNameOld" placeholder="Band Name">
+												</div>
+												<div class="form-group">
+													<label for="exampleInputPassword1">Song Title</label>
+													<input <?php if(!isset($_GET[ 'id'])) echo "disabled='true'"; else echo "value='$band[3]'" ?> type="text" class="form-control" name="songTitle" placeholder="Song Title">
+												</div>
+												<input <?php if(!isset($_GET[ 'id'])) echo "disabled='true'"; else echo "value='$band[3]'" ?> type="hidden" class="form-control" name="songTitleOld" placeholder="Band Name">
 
-											<div class="form-group">
-												<label for="exampleInputPassword1">Song URL</label>
-												<input <?php if(!isset($_GET[ 'id'])) echo "disabled='true'"; else echo "value='$band[2]'" ?> type="text" class="form-control" name="songUrl" placeholder="Song URL">
-											</div>
-											<div class="form-group">
-												<label for="exampleInputPassword1">Band Bio</label>
-												<textarea <?php if(!isset($_GET[ 'id'])) echo "disabled='true'" ?> class="form-control" rows="5" name="bandBio" style="resize: none;"><?php if(isset($_GET['id'])) echo "$band[4]" ?></textarea>
-											</div>
-											<button <?php if(!isset($_GET[ 'id'])) echo "disabled='true'" ?> type="submit" class="btn btn-default">Submit</button>
+												<div class="form-group">
+													<label for="exampleInputPassword1">Song URL</label>
+													<input <?php if(!isset($_GET[ 'id'])) echo "disabled='true'"; else echo "value='$band[2]'" ?> type="text" class="form-control" name="songUrl" placeholder="Song URL">
+												</div>
+												<div class="form-group">
+													<label for="exampleInputPassword1">Band Bio</label>
+													<textarea <?php if(!isset($_GET[ 'id'])) echo "disabled='true'" ?> class="form-control" rows="5" name="bandBio" style="resize: none;">
+														<?php if(isset($_GET['id'])) echo "$band[4]" ?>
+													</textarea>
+												</div>
+												<button <?php if(!isset($_GET[ 'id'])) echo "disabled='true'" ?> type="submit" class="btn btn-default">Submit</button>
 										</form>
 									</div>
 								</div>
@@ -168,12 +170,34 @@
 							<div class="col-md-4">
 								<div class="panel panel-primary">
 									<div class="panel-heading">
+										<h3 class="panel-title">Add Band</h3>
+									</div>
+									<div class="panel-body">
+										<form enctype="multipart/form-data" action="addBandScript.php" method="post">
+											<div class="form-group">
+												<label for="exampleInputEmail1">Band Name</label>
+												<input type="text" class="form-control" name="bandName" placeholder="Band Name">
+											</div>
+											<div class="form-group" id="ImagePath">
+												<label for="exampleInputFile">Thumbnail</label>
+												<input type="file" name="thumb" id="thumb">
+											</div>
+											<div class="form-group">
+												<label for="exampleInputPassword1">Band Bio</label>
+												<textarea class="form-control" rows="5" name="bandBio" style="resize: none;"></textarea>
+											</div>
+											<button type="submit" class="btn btn-default">Submit</button>
+										</form>
+									</div>
+								</div>
+								<div class="panel panel-primary">
+									<div class="panel-heading">
 										<h3 class="panel-title">Remove Song</h3>
 									</div>
 									<div class="panel-body">
 										<form onsubmit="return removeSong()" action="removeBandScript.php" method="post">
 											<div class="form-group">
-												<label for="exampleSelect1">Example select</label>
+												<label for="exampleSelect1">Select Song</label>
 												<select id="songsRm" name="songsRm" class="form-control" id="exampleSelect1" onchange="document.getElementById('rmSubmit').disabled = false;">
 
 													<option disabled selected value> -- select a song -- </option>
@@ -188,6 +212,7 @@
 										</form>
 									</div>
 								</div>
+
 							</div>
 
 						</div>
@@ -221,10 +246,10 @@
 					var id = $('select[name=songs]').val()
 					window.location.replace("?id=" + id);
 				}
-				
+
 				function removeSong() {
 					var id = $('select[name=songsRm]').val();
-					var song = $('select[name=songsRm] option[value="'+id+'"]').text();
+					var song = $('select[name=songsRm] option[value="' + id + '"]').text();
 					return confirm("Are you sure you want to remove the song " + song + "?");
 				}
 			</script>

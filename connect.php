@@ -1,8 +1,5 @@
 <?php
-$servername = "192.168.178.24";
-$username = "bandstart";
-$password = "mhz16mhz";
-$database = "bandstart";
+include("database.php");
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
@@ -14,7 +11,7 @@ if ($conn->connect_error) {
 
 $bands = array();
 
-$sql = "SELECT id, name, url, Titel, bio, img FROM bands";
+$sql = "SELECT id, name, url, Titel, description, img FROM songs";
 $result = $conn->query($sql);
 $num = $result->num_rows;
 if ($num > 0) {
@@ -26,7 +23,7 @@ if ($num > 0) {
                 $row['name'],
                 $row['url'],
                 $row['Titel'],
-                $row['bio'],
+                $row['description'],
                 $row['img']
             )
         );

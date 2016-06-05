@@ -1,8 +1,5 @@
 <?php
-$servername = "192.168.178.24";
-$username = "bandstart";
-$password = "mhz16mhz";
-$database = "bandstart";
+include("database.php");
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
@@ -14,7 +11,7 @@ if ($conn->connect_error) {
 }
 
 
-$sql = "DELETE FROM bands WHERE id=" . $_POST['songsRm'];
+$sql = "DELETE FROM songs WHERE id=" . $_POST['songsRm'];
 
 if ($conn->query($sql) === TRUE) {
     //echo "Record updated successfully";

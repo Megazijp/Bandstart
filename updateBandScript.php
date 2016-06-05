@@ -1,8 +1,5 @@
 <?php
-$servername = "192.168.178.24";
-$username = "bandstart";
-$password = "mhz16mhz";
-$database = "bandstart";
+include("database.php");
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
@@ -20,7 +17,7 @@ if ($conn->connect_error) {
 }
 
 
-$sql = "UPDATE bands SET name='" . $_POST['bandName'] . "', url='" . $_POST['songUrl'] . "', Titel='" . $_POST['songTitle'] . "', bio='" . $_POST['bandBio'] . "', img ='" . "uploads/" . $_POST['bandName'] . " - " . $_POST['songTitle'] . ".jpg" . "' WHERE id=" . $_POST['id'];
+$sql = "UPDATE songs SET name='" . $_POST['bandName'] . "', url='" . $_POST['songUrl'] . "', Titel='" . $_POST['songTitle'] . "', description='" . $_POST['songDesc'] . "', img ='" . "uploads/" . $_POST['bandName'] . " - " . $_POST['songTitle'] . ".jpg" . "' WHERE id=" . $_POST['id'];
 
 rename("uploads/" . $_POST['bandNameOld'] . " - " . $_POST['songTitleOld'] . ".jpg", "uploads/" . $_POST['bandName'] . " - " . $_POST['songTitle'] . ".jpg");
 
@@ -33,6 +30,6 @@ if ($conn->query($sql) === TRUE) {
 
 mysqli_close($conn);
 
-//header("Location: addBand.php");
+header("Location: addBand.php");
 //exit();
 ?>

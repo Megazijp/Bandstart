@@ -1,36 +1,42 @@
 <?php
-$servername = "192.168.178.24";
-$username = "bandstart";
-$password = "mhz16mhz";
-$database = "bandstart";
+
+include("database.php");
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
-/*
-echo "Band Name: " . $_POST['bandName'] . "<br />";
-echo "Song Title: " . $_POST['songTitle'] . "<br />";
-echo "Song URL: " . $_POST['songUrl'] . "<br />";
-echo "YT Thumb: " . $_POST['ytThumb'] . "<br />";
-echo "Thumb: " . $_POST['thumb'] . "<br />";
-echo "Band Bio: " . $_POST['bandBio'] . "<br />";
-*/
-$thumbUrl = "";
 
-if($_POST['ytThumb']){   
-	$pieces = explode("watch?v=", $_POST['songUrl']);
-	$pieces = explode("&", $pieces[1]);
-	$thumbUrl =  "http://img.youtube.com/vi/" . $pieces[0] . "/0.jpg";
-	copy($thumbUrl, "uploads/" . $_POST['bandName'] . " - " . $_POST['songTitle'] . ".jpg");
-	//echo "<img src='" . $thumbUrl . "' />";
+
+$imageFileType = pathinfo($_FILES["thumb"]["name"], PATHINFO_EXTENSION);
+$target_dir = "bands/";
+$target_file = "{$target_dir}{$_POST['bandName']}.{$imageFileType}";
+
+if(!isset($_POST['thumb'])){
+	move_uploaded_file($_FILES["thumb"]["tmp_name"], $target_file);
 }
 
-// Check connection
-if ($conn->connect_error) {
-    //die("Connection failed: " . $conn->connect_error);
+$sql = <<<EOD
+SELECT name, img, bio FROM bands WHERE name='{$_POST["bandName"]}';
+EOD;
+$result = $conn->query($sql);
+$num = $result->num_rows;
+if ($num > 0) {
+	if($_POST['bandBio'] != ""){
+			$sql = <<<EOD
+UPDATE bands SET name='{$_POST["bandName"]}', img='{$target_file}', bio='{$_POST["bandBio"]}' WHERE name='{$_POST["bandName"]}';
+EOD;
+	}else{
+			$sql = <<<EOD
+UPDATE bands SET name='{$_POST["bandName"]}', img='{$target_file}' WHERE name='{$_POST["bandName"]}';
+EOD;
+	}
+
+}else{
+	$sql = <<<EOD
+INSERT INTO bands (name, img, bio) VALUES ('{$_POST["bandName"]}', '{$target_file}', '{$_POST["bandBio"]}');
+EOD;
 }
 
 
-$sql = "INSERT INTO bands (name, url, Titel, bio, img) VALUES ('" . $_POST['bandName'] . "', '" . $_POST['songUrl'] . "', '" . $_POST['songTitle'] . "', '" . $_POST['bandBio'] . "', 'uploads/" . $_POST['bandName'] . " - " . $_POST['songTitle'] . ".jpg')";
 
 if ($conn->query($sql) === TRUE) {
     //echo "New record created successfully";
@@ -40,7 +46,16 @@ if ($conn->query($sql) === TRUE) {
 
 
 mysqli_close($conn);
+/*
+if(!file_exists("bands/{$_POST['bandName']}.php")){
+	$bandPage = fopen("bands/{$_POST['bandName']}.php", "w");
+	$page = "<?php echo 'hi'; ?>";
+	fwrite($bandPage, $page);
+	fclose($bandPage);
+}
+*/
 
-header("Location: addBand.php");
+
+//header("Location: addBand.php");
 exit();
 ?>
